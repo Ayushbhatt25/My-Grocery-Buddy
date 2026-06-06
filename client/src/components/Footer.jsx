@@ -22,7 +22,7 @@ function Footer() {
         <a href="#" className="hover:-translate-y-0.5 transition-all duration-300 text-purple-500 hover:text-purple-400" > <FaInstagram /> </a>
         <a href="#" className="hover:-translate-y-0.5 transition-all duration-300 text-blue-400 hover:text-blue-300" > <FaLinkedinIn /> </a>
         <a href="#" className="hover:-translate-y-0.5 transition-all duration-300 text-sky-500 hover:text-sky-400" > <FaTwitter /> </a>
-        <a href="#" className="hover:-translate-y-0.5 transition-all duration-300 text-gray-400 hover:text-white" > <FaGithub /> </a>
+        <a href="https://github.com/Ayushbhatt25/My-Grocery-Buddy" className="hover:-translate-y-0.5 transition-all duration-300 text-gray-400 hover:text-white" > <FaGithub /> </a>
       </div>
     </footer>
   );
