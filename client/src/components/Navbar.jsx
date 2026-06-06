@@ -33,7 +33,7 @@ function Navbar() {
     }, [searchQuery]);
 
     return (
-        <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-white/10 bg-primary/90 backdrop-blur-xl relative transition-all z-50 shadow-lg shadow-black/20">
+        <nav className="flex items-center justify-between px-4 md:px-8 lg:px-12 py-4 border-b border-white/10 bg-primary/90 backdrop-blur-xl relative transition-all z-50 shadow-lg shadow-black/20">
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
             <NavLink to='/home' onClick={() => setOpen(false)} className="flex items-center gap-2 group">
                 <img className='h-9 group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]' src={assets.logo} alt='logo' />
