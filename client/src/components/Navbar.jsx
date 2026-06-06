@@ -16,7 +16,7 @@ function Navbar() {
             if (data.success) {
                 toast.success(data.message);
                 setUser(null);
-                navigate('/home');
+                navigate('/');
             } else {
                 toast.error(data.message);
             }
@@ -62,34 +62,40 @@ function Navbar() {
                     <span className="absolute top-0 right-0 text-[10px] font-bold text-white bg-primary-dull w-5 h-5 flex items-center justify-center rounded-full shadow-lg shadow-primary/40 border border-gray-900 group-hover:scale-110 transition-transform duration-300">{getCartCount()}</span>
                 </div>
 
-                {/* Profile Dropdown – always visible */}
-                <div className='relative group border-2 border-white/10 rounded-full p-0.5 hover:border-primary/50 transition-colors duration-300 cursor-pointer'>
-                    <img src={assets.profile_icon} className='w-9 h-9 rounded-full object-cover' alt='profile icon' />
-                    <ul className='hidden group-hover:block absolute top-10 right-0 bg-gray-900/95 backdrop-blur-xl shadow-xl shadow-black/40 border border-white/10 py-3 w-40 rounded-xl text-sm z-40 text-gray-300 overflow-hidden'>
-                        {user && (
-                            <>
-                                <li onClick={() => navigate("my-profile")} className='px-4 py-2.5 hover:bg-white/10 hover:text-white cursor-pointer transition-colors flex items-center gap-2'>
-                                    <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                    My Profile
-                                </li>
-                                <li onClick={() => navigate("my-orders")} className='px-4 py-2.5 hover:bg-white/10 hover:text-white cursor-pointer transition-colors flex items-center gap-2'>
-                                    <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                    My Orders
-                                </li>
-                                <li onClick={logout} className='px-4 py-2.5 hover:bg-white/10 hover:text-red-400 cursor-pointer transition-colors flex items-center gap-2'>
-                                    <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                                    Logout
-                                </li>
-                            </>
-                        )}
-                        {!user && (
-                            <li onClick={() => navigate("/home")} className='px-4 py-2.5 hover:bg-white/10 hover:text-white cursor-pointer transition-colors flex items-center gap-2'>
-                                <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                Sign In
+                {/* Login / Profile */}
+                {!user ? (
+                    <button onClick={() => navigate('/')}
+                        className="group px-8 py-2.5 bg-gray-900 rounded-full text-white cursor-pointer active:scale-95 transition-all duration-300 hover:bg-primary-dull shadow-lg shadow-black/20 hover:shadow-black/40">
+                        <div className="relative h-6 overflow-hidden">
+                            <span className="block transition-transform duration-300 group-hover:-translate-y-full">Login</span>
+                            <span className="absolute top-full left-0 w-full block transition-transform duration-300 group-hover:-translate-y-full">Login</span>
+                        </div>
+                    </button>
+                ) : (
+                    <div className='relative group border-2 border-white/10 rounded-full p-0.5 hover:border-primary/50 transition-colors duration-300 cursor-pointer'>
+                        <img src={user.image || assets.profile_icon} className='w-9 h-9 rounded-full object-cover' alt='profile icon' />
+                        {/* User name shown on hover */}
+                        <ul className='hidden group-hover:block absolute top-10 right-0 bg-gray-900/95 backdrop-blur-xl shadow-xl shadow-black/40 border border-white/10 py-3 w-48 rounded-xl text-sm z-40 text-gray-300 overflow-hidden'>
+                            {/* User info header */}
+                            <li className='px-4 py-2 border-b border-white/10 mb-1'>
+                                <p className='font-semibold text-white truncate'>{user.name || 'User'}</p>
+                                <p className='text-xs text-gray-400 truncate'>{user.email || ''}</p>
                             </li>
-                        )}
-                    </ul>
-                </div>
+                            <li onClick={() => navigate("my-profile")} className='px-4 py-2.5 hover:bg-white/10 hover:text-white cursor-pointer transition-colors flex items-center gap-2'>
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                My Profile
+                            </li>
+                            <li onClick={() => navigate("my-orders")} className='px-4 py-2.5 hover:bg-white/10 hover:text-white cursor-pointer transition-colors flex items-center gap-2'>
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                My Orders
+                            </li>
+                            <li onClick={logout} className='px-4 py-2.5 hover:bg-white/10 hover:text-red-400 cursor-pointer transition-colors flex items-center gap-2'>
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                Logout
+                            </li>
+                        </ul>
+                    </div>
+                )}
             </div>
 
             {/* Mobile right icons */}
@@ -124,13 +130,13 @@ function Navbar() {
                         <span className="w-1 h-4 bg-primary rounded-full"></span>
                         Contact
                     </NavLink>
-                    {user ? (
-                        <button onClick={logout} className="cursor-pointer px-6 py-3 mt-4 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-medium rounded-xl w-full active:scale-95 transition-all">
-                            Logout
+                    {!user ? (
+                        <button onClick={() => { setOpen(false); navigate('/'); }} className="cursor-pointer px-6 py-3 mt-4 bg-gray-900 text-white font-medium rounded-xl shadow-lg shadow-black/20 w-full active:scale-95 transition-all hover:bg-primary">
+                            Login
                         </button>
                     ) : (
-                        <button onClick={() => { setOpen(false); navigate('/home'); }} className="cursor-pointer px-6 py-3 mt-4 bg-primary text-white font-medium rounded-xl w-full active:scale-95 transition-all">
-                            Sign In
+                        <button onClick={logout} className="cursor-pointer px-6 py-3 mt-4 bg-white/10 hover:bg-white/20 border border-white/10 text-white font-medium rounded-xl w-full active:scale-95 transition-all">
+                            Logout
                         </button>
                     )}
                 </div>

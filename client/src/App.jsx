@@ -4,7 +4,6 @@ import Home from "./pages/Home"
 import { Toaster } from 'react-hot-toast';
 import Footer from "./components/Footer";
 import { useAppContext } from "./context/AppContext";
-import Login from "./components/Login";
 import AllProducts from "./pages/AllProducts";
 import ProductCategory from "./pages/ProductCategory";
 import ProductDetails from "./pages/ProductDetails";
@@ -23,23 +22,22 @@ import MyProfile from "./pages/MyProfile.jsx"
 function App() {
   const location = useLocation();
   const isSellerPath = location.pathname.toLowerCase().includes("seller");
-  const { showUserLogin, isSeller } = useAppContext();
+  const isAuthPage = location.pathname === "/";
+  const { isSeller } = useAppContext();
 
   return (
     <>
       <div className="text-default min-h-screen text-gray-300" >
-        {isSellerPath ? null : <Navbar />}
-        {showUserLogin ? <Login /> : null}
+        {isSellerPath || isAuthPage ? null : <Navbar />}
         <Toaster />
-        <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+        <div className={`${isSellerPath || isAuthPage ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<AuthPage />} />
             <Route path="/home" element={<Home />} />
             <Route path="/products" element={<AllProducts />} />
             <Route path="/products/:category" element={<ProductCategory />} />
             <Route path="/products/:category/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/add-address" element={<AddAddress />} />
             <Route path="/add-address" element={<AddAddress />} />
             <Route path="/my-orders" element={<MyOrders />} />
             <Route path="/my-profile" element={<MyProfile />} />
@@ -51,7 +49,7 @@ function App() {
             </Route>
           </Routes>
         </div>
-        {!isSellerPath && <Footer />}
+        {!isSellerPath && !isAuthPage && <Footer />}
 
         {/* Animated Wave Background */}
         <div className="wave">
