@@ -23,12 +23,26 @@ const allowedOrigins = [
     'https://greencart-sand.vercel.app'
 ];
 if (process.env.FRONTEND_URL) {
-    allowedOrigins.push(process.env.FRONTEND_URL);
+    allowedOrigins.push(process.env.FRONTEND_URL.replace(/\/$/, ""));
 }
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: allowedOrigins }));
+app.use(cors({
+    credentials: true,
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        const cleanedOrigin = origin.replace(/\/$/, "");
+        const isAllowed = allowedOrigins.includes(cleanedOrigin) || 
+                          (cleanedOrigin.endsWith('.vercel.app') && cleanedOrigin.includes('ayushbhatt25s-projects'));
+        
+        if (isAllowed) {
+            callback(null, true);
+        } else {
+            callback(null, false);
+        }
+    }
+}));
 
 // API Endpoints
 app.get('/', (req, res) => res.send('API is working!'));
