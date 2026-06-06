@@ -1,9 +1,9 @@
+import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import cors from 'cors';
 import connectDB from './configs/db.js';
 import connectCloudinary from './configs/cloudinary.js';
-import 'dotenv/config';
 import userRouter from './routes/userRoute.js';
 import sellerRouter from './routes/sellerRoute.js';
 import productRouter from './routes/productRoute.js';
@@ -17,7 +17,14 @@ const port = process.env.PORT || 8000;
 connectDB();
 connectCloudinary();
 
-const allowedOrigins = ['http://localhost:5173', 'https://greencart-sand.vercel.app'];
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://greencart-sand.vercel.app'
+];
+if (process.env.FRONTEND_URL) {
+    allowedOrigins.push(process.env.FRONTEND_URL);
+}
 
 app.use(express.json());
 app.use(cookieParser());

@@ -13,9 +13,9 @@ const Cart = () => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [paymentOption, setPaymentOption] = useState("COD");
 
-    const initPay = (order) => {
+    const initPay = (order, key) => {
         const options = {
-            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+            key: key,
             amount: order.amount,
             currency: order.currency,
             name: "My Grocery Buddy",
@@ -76,7 +76,7 @@ const Cart = () => {
                     address: selectedAddress._id
                 });
                 if (data.success) {
-                    initPay(data.order);
+                    initPay(data.order, data.key);
                 } else {
                     toast.error(data.message);
                 }

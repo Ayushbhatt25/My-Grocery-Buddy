@@ -83,7 +83,7 @@ export const placeOrderRazorpay = async (req, res) => {
             isPaid: false
         });
 
-        return res.json({ success: true, order, orderId: newOrder._id });
+        return res.json({ success: true, order, orderId: newOrder._id, key: process.env.RAZORPAY_KEY_ID });
 
     } catch (error) {
         console.log(error.message);

@@ -7,7 +7,7 @@ import { AppContextProvider } from './context/AppContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <GoogleOAuthProvider clientId="682222120557-c65h2gkrjdf3qgckjrleellehkrj8b26.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <AppContextProvider>
         <App />
       </AppContextProvider>
