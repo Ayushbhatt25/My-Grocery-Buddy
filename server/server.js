@@ -20,7 +20,8 @@ connectCloudinary();
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:5174',
-    'https://greencart-sand.vercel.app'
+    'https://greencart-sand.vercel.app',
+    'https://my-grocery-buddy.vercel.app'
 ];
 if (process.env.FRONTEND_URL) {
     allowedOrigins.push(process.env.FRONTEND_URL.replace(/\/$/, ""));
