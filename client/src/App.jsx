@@ -23,18 +23,17 @@ import MyProfile from "./pages/MyProfile.jsx"
 function App() {
   const location = useLocation();
   const isSellerPath = location.pathname.toLowerCase().includes("seller");
-  const isAuthPage = location.pathname === "/";
   const { showUserLogin, isSeller } = useAppContext();
 
   return (
     <>
       <div className="text-default min-h-screen text-gray-300" >
-        {isSellerPath || isAuthPage ? null : <Navbar />}
+        {isSellerPath ? null : <Navbar />}
         {showUserLogin ? <Login /> : null}
         <Toaster />
-        <div className={`${isSellerPath || isAuthPage ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+        <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
           <Routes>
-            <Route path="/" element={<AuthPage />} />
+            <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/products" element={<AllProducts />} />
             <Route path="/products/:category" element={<ProductCategory />} />
@@ -52,7 +51,7 @@ function App() {
             </Route>
           </Routes>
         </div>
-        {!isSellerPath && !isAuthPage && <Footer />}
+        {!isSellerPath && <Footer />}
 
         {/* Animated Wave Background */}
         <div className="wave">
